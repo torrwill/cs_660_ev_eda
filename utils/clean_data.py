@@ -1,6 +1,5 @@
 import pandas as pd
 
-
 """Range Data Cleaning Function"""
 def dataCleaner(argData: pd.DataFrame):
     data = argData.copy()
