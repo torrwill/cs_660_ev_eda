@@ -99,7 +99,6 @@ them ensures that the data-set represents only EVs registered in Washington Stat
 def convertPostalCode(argData: pd.DataFrame):
     data = argData.copy(deep=True)
 
-    result = data.dropna(subset=['Postal Code'])
-    result = result['Postal Code'].astype(int)
+    result = data['Postal Code'].astype(int)
 
     return result
