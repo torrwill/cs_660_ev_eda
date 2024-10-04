@@ -88,3 +88,18 @@ def convertEligibility(argData: pd.DataFrame):
     result = data.apply(getEligibility, axis=1, result_type='broadcast')
 
     return result
+
+"""
+Convert Postal Code dtype to int.
+
+Please note that three records are excluded from the dataset by this function,
+these records are outliers because they are registered in canada, removing
+them ensures that the data-set represents only EVs registered in Washington State.
+"""
+def convertPostalCode(argData: pd.DataFrame):
+    data = argData.copy(deep=True)
+
+    result = data.dropna(subset=['Postal Code'])
+    result = result['Postal Code'].astype(int)
+
+    return result
