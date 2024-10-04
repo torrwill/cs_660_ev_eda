@@ -1,5 +1,7 @@
 import pandas as pd
 
+# TODO: Modify functions to use .merge() or .map() to avoid row iteration
+
 """Range Data Cleaning Function"""
 def calculateRange(argData: pd.DataFrame):
     data = argData.copy(deep=True) # Copy argument DataFrame to avoid side effects.
