@@ -89,6 +89,18 @@ def convertEligibility(argData: pd.DataFrame):
 
     return result
 
+"""
+Convert Postal Code dtype to int.
+"""
+def convertPostalCode(argData: pd.DataFrame):
+    data = argData.copy(deep=True)
+
+    data['Postal Code'] = data['Postal Code'].astype(int)
+    
+    result = data
+
+    return result
+
 
 
 """"
@@ -107,5 +119,6 @@ def purgeInternationalOutliers(argData: pd.DataFrame):
     data = argData.copy(deep=True)
 
     result = data.dropna(subset=['Postal Code'])
+
 
     return result
