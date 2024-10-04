@@ -89,6 +89,7 @@ def convertEligibility(argData: pd.DataFrame):
 
     return result
 
+
 """
 Convert Postal Code dtype to int.
 
@@ -101,5 +102,9 @@ def convertPostalCode(argData: pd.DataFrame):
 
     result = data.dropna(subset=['Postal Code'])
     result = result['Postal Code'].astype(int)
-
     return result
+
+
+"""
+Normalize Utility
+"""
