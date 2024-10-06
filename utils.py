@@ -122,3 +122,21 @@ def purgeInternationalOutliers(argData: pd.DataFrame):
 
 
     return result
+
+
+"""
+Our data presents with 4 records that are missing Vehicle Location for an unknown reason.
+
+The vehicle location data can be inferred by matching other location specific features on the records.
+"""
+def imputeLocationData(argData: pd.DataFrame):
+    data = argData.copy(deep=True)
+
+    # Because the missing data points are all for the same city and county, a non-generic implementation will suffice.
+    location = data.groupby(['City', 'County']).get_group(('Long Beach','Pacific'))['Vehicle Location'].values[0]
+    
+    data['Vehicle Location'] = data['Vehicle Location'].fillna(location)
+    
+    result = data
+
+    return result
