@@ -88,3 +88,37 @@ def convertEligibility(argData: pd.DataFrame):
     result = data.apply(getEligibility, axis=1, result_type='broadcast')
 
     return result
+
+"""
+Convert Postal Code dtype to int.
+"""
+def convertPostalCode(argData: pd.DataFrame):
+    data = argData.copy(deep=True)
+
+    data['Postal Code'] = data['Postal Code'].astype(int)
+    
+    result = data
+
+    return result
+
+
+
+""""
+Removes four international records from the dataset:
+
+        VIN (1-10) County City State  Postal Code  Model Year       Make  
+114     WBAJA9C50K    NaN  NaN    AE          NaN        2019        BMW   
+148234  5YJXCAE24H    NaN  NaN    BC          NaN        2017      TESLA   
+157590  5YJ3E1EA5K    NaN  NaN    BC          NaN        2019      TESLA   
+175158  1G1RB6S53J    NaN  NaN    BC          NaN        2018  CHEVROLET 
+
+These vehicles may be removed as outliers because they are registered outside of Washington State,
+and are conceptually incongruent with the rest of the data set.
+"""
+def purgeInternationalOutliers(argData: pd.DataFrame):
+    data = argData.copy(deep=True)
+
+    result = data.dropna(subset=['Postal Code'])
+
+
+    return result
