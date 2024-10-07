@@ -163,3 +163,10 @@ def normalizeUtility(argData: pd.DataFrame):
     
     return result
 
+
+def strip_zero(argData: pd.DataFrame, feature='Electric Range'):
+    data = argData.copy(deep=True)
+
+    result = data[data[feature] > 0]
+
+    return result
