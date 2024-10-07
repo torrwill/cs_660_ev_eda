@@ -1,4 +1,6 @@
 import pandas as pd
+from sklearn import preprocessing
+
 
 # TODO: Modify functions to use .merge() or .map() to avoid row iteration
 
@@ -120,7 +122,6 @@ def purgeInternationalOutliers(argData: pd.DataFrame):
 
     result = data.dropna(subset=['Postal Code'])
 
-
     return result
 
 
@@ -140,3 +141,25 @@ def imputeLocationData(argData: pd.DataFrame):
     result = data
 
     return result
+
+"""
+Normalizes Electric Utility to CSV format.
+Previous formatting had been a mix of `|` and `||`
+"""
+def normalizeUtility(argData: pd.DataFrame):
+    data = argData.copy(deep=True)
+    # label_encoder = preprocessing.LabelEncoder() 
+    
+    def parseUtility(row):
+        utilities = row['Electric Utility'].replace('||','|').split('|')
+        row['Electric Utility'] = utilities
+        return row
+
+    result = data.apply(parseUtility, axis=1, result_type='broadcast')
+    
+    utilities = result['Electric Utility'].explode()
+    utilities[:] = utilities.factorize()[0]
+    result['Electric Utility'] = utilities.groupby(level=0).agg(list)
+    
+    return result
+
