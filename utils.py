@@ -120,7 +120,6 @@ def purgeInternationalOutliers(argData: pd.DataFrame):
 
     result = data.dropna(subset=['Postal Code'])
 
-
     return result
 
 
@@ -140,3 +139,19 @@ def imputeLocationData(argData: pd.DataFrame):
     result = data
 
     return result
+
+"""
+Normalizes Electric Utility to CSV format.
+Previous formatting had been a mix of `|` and `||`
+"""
+def normalizeUtility(argData: pd.DataFrame):
+    data = argData.copy(deep=True)
+
+    def parseUtility(row):
+        row['Electric Utility'] = ','.join(row['Electric Utility'].replace('||','|').split('|'))
+        return row
+
+    result = data.apply(parseUtility, axis=1, result_type='broadcast')
+    
+    return result
+
