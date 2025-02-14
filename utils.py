@@ -28,6 +28,7 @@ def calculateRange(argData: pd.DataFrame):
             record['Electric Range'] = recordedRange
         return record
 
+    print('Make Model combinations with no Electric Range:', len(list(set(unrecordedRanges))))
     result = data.apply(getRange, axis=1, result_type='broadcast')
     return result
     
@@ -61,6 +62,7 @@ def calculateMSRP(argData: pd.DataFrame):
             record['Base MSRP'] = recordedPrice
         return record
     
+    print('Make Model combinations with no MSRP:', len(list(set(unrecordedMSRP))))
     result = data.apply(getMSRP, axis=1, result_type='broadcast')
     return result
 
